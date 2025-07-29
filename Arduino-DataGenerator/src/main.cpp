@@ -39,8 +39,4 @@ void serialLogging(){
   Serial.println(random(4));
   Serial.print(">b1:");
   Serial.println(random(4));
-
-  //Energy
-  Serial.print(">e:");
-  Serial.println(random(61));
 }
