@@ -14,6 +14,9 @@ class Data:
             'a':'0',
             'b':'0',
             'c':'0',
+            'a-total':'0',
+            'b-total':'0',
+            'c-total':'0',
             'a-state':'0',
             'b-state':'0',
             'c-state':'0',
@@ -24,7 +27,7 @@ class Data:
         }
 
         self.energy = self.getLastEnergyValue()
-        self.powerKeys = ['Irms0','a','b','c']
+        self.powerKeys = ['Irms0','a','b','c','a-total','b-total','c-total']
         self.stateKeys = ['a-state','b-state','c-state','b0','b1']
         self.timer = 0
 
@@ -61,11 +64,11 @@ class Data:
     def calcPower(self):
         current = 0.0
         if bool(self.data['a-state']):
-            current += float(self.data['a'])
+            current += float(self.data['a-total'])
         if bool(self.data['b-state']):
-            current += float(self.data['b'])
+            current += float(self.data['b-total'])
         if bool(self.data['c-state']):
-            current += float(self.data['c'])
+            current += float(self.data['c-total'])
         return self.currentToPower(current)
     
     def calcEnergy(self, power):

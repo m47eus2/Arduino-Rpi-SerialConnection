@@ -29,15 +29,15 @@ selectedTime = {"value":5}
 #Graphs
 graphs = []
 
-graphs.append(Graph("Produkcja", ["limegreen"], 500, "kW", ["Irms0"]))
+graphs.append(Graph("Produkcja", ["limegreen"], 400, "kW", ["Irms0"]))
 
 
-graphs.append(Graph("Moc", ["dodgerblue"], 500, "kW", ["p"]))
-graphs.append(Graph("Energia", ["dodgerblue"], 500, "kWh", ["e"]))
+graphs.append(Graph("Moc", ["dodgerblue"], 400, "kW", ["p"]))
+graphs.append(Graph("Energia", ["dodgerblue"], 400, "kWh", ["e"]))
 
-graphs.append(Graph("Pobór odbiornik A", ["darkslateblue"], 400, "", ["a"]))
-graphs.append(Graph("Pobór odbiornik B", ["darkslateblue"], 400, "", ["b"]))
-graphs.append(Graph("Pobór odbiornik C", ["darkslateblue"], 400, "", ["c"]))
+graphs.append(Graph("Pobór odbiornik A", ["cornflowerblue","tomato"], 400, "kW", ["a","a-total"]))
+graphs.append(Graph("Pobór odbiornik B", ["cornflowerblue","tomato"], 400, "kW", ["b","b-total"]))
+graphs.append(Graph("Pobór odbiornik C", ["cornflowerblue","tomato"], 400, "kW", ["c","c-total"]))
 
 graphs.append(Graph("Stan obriornik A", ["steelblue"], 150, "", ["a-state"]))
 graphs.append(Graph("Stan obriornik B", ["steelblue"], 150, "", ["b-state"]))
