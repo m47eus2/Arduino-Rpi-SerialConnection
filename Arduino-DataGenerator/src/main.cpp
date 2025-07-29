@@ -17,65 +17,13 @@ void serialLogging(){
   //Irms measurments
   Serial.print(">Irms0:");
   Serial.println(random(61));
-  Serial.print(">Irms1:");
-  Serial.println(random(61));
-  Serial.print(">Irms2:");
-  Serial.println(random(61));
-  Serial.print(">Irms3:");
-  Serial.println(random(61));
-  Serial.print(">Irms4:");
-  Serial.println(random(61));
-  Serial.print(">Irms5:");
-  Serial.println(random(61));
-  Serial.print(">Irms6:");
-  Serial.println(random(61));
-  Serial.print(">Irms7:");
-  Serial.println(random(61));
-  Serial.print(">Irms8:");
-  Serial.println(random(61));
-  Serial.print(">Irms9:");
-  Serial.println(random(61));
-
+ 
   //Combinatoins values
   Serial.print(">a:");
   Serial.println(random(61));
   Serial.print(">b:");
   Serial.println(random(61));
   Serial.print(">c:");
-  Serial.println(random(61));
-  Serial.print(">ab:");
-  Serial.println(random(61));
-  Serial.print(">ac:");
-  Serial.println(random(61));
-  Serial.print(">bc:");
-  Serial.println(random(61));
-  Serial.print(">abc:");
-  Serial.println(random(61));
-
-  //Combinatoins couters
-  Serial.print(">a-counter:");
-  Serial.println(random(10));
-  Serial.print(">b-counter:");
-  Serial.println(random(10));
-  Serial.print(">c-counter:");
-  Serial.println(random(10));
-  Serial.print(">ab-counter:");
-  Serial.println(random(10));
-  Serial.print(">ac-counter:");
-  Serial.println(random(10));
-  Serial.print(">bc-counter:");
-  Serial.println(random(10));
-  Serial.print(">abc-counter:");
-  Serial.println(random(10));
-  Serial.print(">switching-counter:");
-  Serial.println(random(10));
-
-  //Phases sum
-  Serial.print(">phase-0:");
-  Serial.println(random(61));
-  Serial.print(">phase-1:");
-  Serial.println(random(61));
-  Serial.print(">phase-2:");
   Serial.println(random(61));
 
   //Connected receivers
@@ -91,4 +39,8 @@ void serialLogging(){
   Serial.println(random(4));
   Serial.print(">b1:");
   Serial.println(random(4));
+
+  //Energy
+  Serial.print(">e:");
+  Serial.println(random(61));
 }
