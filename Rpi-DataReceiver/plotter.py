@@ -3,6 +3,7 @@ from bokeh.models import ColumnDataSource, Select
 from bokeh.plotting import figure, curdoc
 import pandas as pd
 from datetime import datetime, timedelta
+import os
 
 class Graph():
     def __init__(self, title, colors, height, csvColumns):
@@ -75,9 +76,11 @@ def update():
     agregatedDataPATH = "database/agrData.csv"
 
     recentData = pd.read_csv(recentDataPATH)
-    agregatedData = pd.read_csv(agregatedDataPATH)
-    data = pd.concat([agregatedData, recentData], ignore_index=True)
-    #data = data.tail(3600)
+    if os.path.isfile(agregatedDataPATH):
+        agregatedData = pd.read_csv(agregatedDataPATH)
+        data = pd.concat([agregatedData, recentData], ignore_index=True)
+    else:
+        data = recentData
 
     data['time'] = pd.to_datetime(data['time'], format="%Y-%m-%d %H:%M:%S")
     cuttofDate = datetime.now() - timedelta(minutes = selectedTime['value'])
