@@ -23,23 +23,18 @@ class Data:
             'e':'0'
         }
 
-        #Getting Energy last value
-        files = glob.glob("database/*-log.csv")
-        if files:
-            PATH = sorted(files)[-1]
-            csvFile=pd.read_csv(PATH)
-            csvFile=csvFile.tail(1)
-            self.energy = float(csvFile['e'].values[0])
-        else:
-            self.energy = 0.0
+        self.energy = self.getLastEnergyValue()
+        self.powerKeys = ['Irms0','a','b','c']
+        self.stateKeys = ['a-state','b-state','c-state','b0','b1']
 
     def collectData(self, line):
         line = line.split(':')
         key = line[0][1:]
 
-        if key in self.data:
+        if key in self.powerKeys:
+            self.data[key] = self.currentToPower(line[1])
+        if key in self.stateKeys:
             self.data[key] = line[1]
-
         if key == 'b1':
             self.writeToCsv()
 
@@ -50,11 +45,27 @@ class Data:
             writer = csv.writer(file)
             if not fileExists:
                 writer.writerow(self.data.keys())
-            self.data['time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            self.energy += float(self.data['e'])
-            self.data['e'] = self.energy
+            self.fillRow()
             writer.writerow(self.data.values())
             self.resetValues()
+
+    def fillRow(self):
+        self.data['time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.energy += float(self.data['p'])
+        self.data['e'] = self.energy
+
+    def currentToPower(self, current):
+        return (float(current)*230.0)/1000.0
+    
+    def getLastEnergyValue(self):
+        files = glob.glob("database/*-log.csv")
+        if files:
+            PATH = sorted(files)[-1]
+            csvFile=pd.read_csv(PATH)
+            csvFile=csvFile.tail(1)
+            return float(csvFile['e'].values[0])
+        else:
+            return 0.0
 
 
     def resetValues(self):
