@@ -26,6 +26,14 @@ void serialLogging(){
   Serial.print(">c:");
   Serial.println(random(61));
 
+  //Receivers total consumption
+  Serial.print(">a-total:");
+  Serial.println(30+random(31));
+  Serial.print(">b-total:");
+  Serial.println(30+random(31));
+  Serial.print(">c-total:");
+  Serial.println(30+random(31));
+
   //Connected receivers
   Serial.print(">a-state:");
   Serial.println(random(2));
