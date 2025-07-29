@@ -57,22 +57,22 @@ class Data:
 
     def fillRow(self):
         self.data['time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        power = self.calcPower()
-        self.receiverEnergy += self.calcEnergy(power)
+        receiversPower = self.calcReceiversPower()
+        self.receiverEnergy += self.calcEnergy(receiversPower)
         self.productionEnergy += self.calcEnergy(float(self.data['Irms0']))
         self.data['Irms0-total'] = self.productionEnergy
-        self.data['p'] = power
+        self.data['p'] = receiversPower
         self.data['e'] = self.receiverEnergy
 
-    def calcPower(self):
-        current = 0.0
+    def calcReceiversPower(self):
+        power = 0.0
         if bool(self.data['a-state']):
-            current += float(self.data['a-total'])
+            power += float(self.data['a-total'])
         if bool(self.data['b-state']):
-            current += float(self.data['b-total'])
+            power += float(self.data['b-total'])
         if bool(self.data['c-state']):
-            current += float(self.data['c-total'])
-        return self.currentToPower(current)
+            power += float(self.data['c-total'])
+        return power
     
     def calcEnergy(self, power):
         if self.timer:

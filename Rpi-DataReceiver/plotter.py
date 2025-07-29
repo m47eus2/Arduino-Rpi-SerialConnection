@@ -30,6 +30,7 @@ selectedTime = {"value":5}
 graphs = []
 
 graphs.append(Graph("Produkcja", ["limegreen"], 400, "kW", ["Irms0"]))
+graphs.append(Graph("Produkcja", ["limegreen"], 400, "kWh", ["Irms0-total"]))
 
 
 graphs.append(Graph("Moc", ["dodgerblue"], 400, "kW", ["p"]))
@@ -89,11 +90,11 @@ def update():
     for graph in graphs:
         graph.update(data)
 
-layout = column(graphs[0].figure, 
-                row(graphs[1].figure, graphs[2].figure, sizing_mode="stretch_width"),
-                row(graphs[3].figure, graphs[4].figure, graphs[5].figure, sizing_mode="stretch_width"),
-                row(graphs[6].figure, graphs[7].figure, graphs[8].figure, sizing_mode="stretch_width"),
-                row(graphs[9].figure, graphs[10].figure, sizing_mode="stretch_width"),
+layout = column(row(graphs[0].figure, graphs[1].figure, sizing_mode="stretch_width"),
+                row(graphs[2].figure, graphs[3].figure, sizing_mode="stretch_width"),
+                row(graphs[4].figure, graphs[5].figure, graphs[6].figure, sizing_mode="stretch_width"),
+                row(graphs[7].figure, graphs[8].figure, graphs[9].figure, sizing_mode="stretch_width"),
+                row(graphs[10].figure, graphs[11].figure, sizing_mode="stretch_width"),
                 selector, 
                 sizing_mode="stretch_width")
 
