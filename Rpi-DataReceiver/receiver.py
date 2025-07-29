@@ -11,6 +11,7 @@ class Data:
         self.data = {
             'time':'0',
             'Irms0':'0',
+            'Irms0-total':'0',
             'a':'0',
             'b':'0',
             'c':'0',
@@ -26,7 +27,7 @@ class Data:
             'e':'0'
         }
 
-        self.energy = self.getLastEnergyValue()
+        (self.receiverEnergy, self.productionEnergy) = self.getLastEnergyValues()
         self.powerKeys = ['Irms0','a','b','c','a-total','b-total','c-total']
         self.stateKeys = ['a-state','b-state','c-state','b0','b1']
         self.timer = 0
@@ -57,9 +58,11 @@ class Data:
     def fillRow(self):
         self.data['time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         power = self.calcPower()
-        self.energy += self.calcEnergy(power)
+        self.receiverEnergy += self.calcEnergy(power)
+        self.productionEnergy += self.calcEnergy(float(self.data['Irms0']))
+        self.data['Irms0-total'] = self.productionEnergy
         self.data['p'] = power
-        self.data['e'] = self.energy
+        self.data['e'] = self.receiverEnergy
 
     def calcPower(self):
         current = 0.0
@@ -79,19 +82,18 @@ class Data:
         else:
             return 0.0
 
-
     def currentToPower(self, current):
         return (float(current)*230.0)/1000.0
     
-    def getLastEnergyValue(self):
+    def getLastEnergyValues(self):
         files = glob.glob("database/*-log.csv")
         if files:
             PATH = sorted(files)[-1]
             csvFile=pd.read_csv(PATH)
             csvFile=csvFile.tail(1)
-            return float(csvFile['e'].values[0])
+            return (float(csvFile['e'].values[0]), float(csvFile['Irms0-total'].values[0]))
         else:
-            return 0.0
+            return (0.0, 0.0)
 
 
     def resetValues(self):
