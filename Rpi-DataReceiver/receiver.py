@@ -51,8 +51,20 @@ class Data:
 
     def fillRow(self):
         self.data['time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        self.energy += float(self.data['p'])
+        power = self.calcPower()
+        self.energy += power
+        self.data['p'] = power
         self.data['e'] = self.energy
+
+    def calcPower(self):
+        current = 0.0
+        if bool(self.data['a-state']):
+            current += float(self.data['a'])
+        if bool(self.data['b-state']):
+            current += float(self.data['b'])
+        if bool(self.data['c-state']):
+            current += float(self.data['c'])
+        return self.currentToPower(current)
 
     def currentToPower(self, current):
         return (float(current)*230.0)/1000.0
