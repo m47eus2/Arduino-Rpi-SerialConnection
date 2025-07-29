@@ -2,6 +2,8 @@ import serial
 import time 
 import os
 import csv
+import glob
+import pandas as pd
 from datetime import datetime 
 
 class Data:
@@ -16,8 +18,20 @@ class Data:
             'b-state':'0',
             'c-state':'0',
             'b0':'0',
-            'b1':'0'
+            'b1':'0',
+            'e':'0',
+            'ce':'0'
         }
+
+        #Getting cEnergy last value
+        files = glob.glob("database/*-log.csv")
+        if files:
+            PATH = sorted(files)[-1]
+            csvFile=pd.read_csv(PATH)
+            csvFile=csvFile.tail(1)
+            self.cEnergy = float(csvFile['ce'].values[0])
+        else:
+            self.cEnergy = 0.0
 
     def collectData(self, line):
         line = line.split(':')
@@ -26,7 +40,7 @@ class Data:
         if key in self.data:
             self.data[key] = line[1]
 
-        if key == "b1":
+        if key == 'e':
             self.writeToCsv()
 
     def writeToCsv(self):
@@ -37,6 +51,8 @@ class Data:
             if not fileExists:
                 writer.writerow(self.data.keys())
             self.data['time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            self.cEnergy += float(self.data['e'])
+            self.data['ce'] = self.cEnergy
             writer.writerow(self.data.values())
             self.resetValues()
 

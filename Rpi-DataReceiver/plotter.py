@@ -31,8 +31,8 @@ graphs = []
 graphs.append(Graph("Production", ["limegreen"], 500, ["Irms0"]))
 
 
-graphs.append(Graph("Energy", ["dodgerblue"], 500,["Irms0"]))
-graphs.append(Graph("Accumulated energy", ["dodgerblue"], 500, ["Irms0"]))
+graphs.append(Graph("Energy", ["dodgerblue"], 500,["e"]))
+graphs.append(Graph("Accumulated energy", ["dodgerblue"], 500, ["ce"]))
 
 graphs.append(Graph("Receiver A", ["darkslateblue"], 400, ["a"]))
 graphs.append(Graph("Receiver B", ["darkslateblue"], 400, ["b"]))
