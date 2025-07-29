@@ -26,6 +26,7 @@ class Data:
         self.energy = self.getLastEnergyValue()
         self.powerKeys = ['Irms0','a','b','c']
         self.stateKeys = ['a-state','b-state','c-state','b0','b1']
+        self.timer = 0
 
     def collectData(self, line):
         line = line.split(':')
@@ -47,12 +48,13 @@ class Data:
                 writer.writerow(self.data.keys())
             self.fillRow()
             writer.writerow(self.data.values())
+            self.timer = time.perf_counter()
             self.resetValues()
 
     def fillRow(self):
         self.data['time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         power = self.calcPower()
-        self.energy += power
+        self.energy += self.calcEnergy(power)
         self.data['p'] = power
         self.data['e'] = self.energy
 
@@ -65,6 +67,15 @@ class Data:
         if bool(self.data['c-state']):
             current += float(self.data['c'])
         return self.currentToPower(current)
+    
+    def calcEnergy(self, power):
+        if self.timer:
+            currentTime = time.perf_counter()
+            energyTime = (currentTime - self.timer)/3600
+            return power*energyTime
+        else:
+            return 0.0
+
 
     def currentToPower(self, current):
         return (float(current)*230.0)/1000.0

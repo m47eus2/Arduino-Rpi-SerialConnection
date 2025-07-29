@@ -6,13 +6,13 @@ from datetime import datetime, timedelta
 import os
 
 class Graph():
-    def __init__(self, title, colors, height, csvColumns):
+    def __init__(self, title, colors, height, yLabel,csvColumns):
 
         self.sources = []
         for column in csvColumns:
             self.sources.append(ColumnDataSource(data=dict(x=[],y=[])))
 
-        self.figure = figure(title=title,x_axis_type="datetime", y_axis_label="kW", height=height)
+        self.figure = figure(title=title,x_axis_type="datetime", y_axis_label=yLabel, height=height)
 
         for i in range(len(csvColumns)):
             self.figure.line(x='x', y='y', source=self.sources[i], color=colors[i], line_width=2)
@@ -29,22 +29,22 @@ selectedTime = {"value":5}
 #Graphs
 graphs = []
 
-graphs.append(Graph("Production", ["limegreen"], 500, ["Irms0"]))
+graphs.append(Graph("Produkcja", ["limegreen"], 500, "kW", ["Irms0"]))
 
 
-graphs.append(Graph("Power", ["dodgerblue"], 500,["p"]))
-graphs.append(Graph("Energy", ["dodgerblue"], 500, ["e"]))
+graphs.append(Graph("Moc", ["dodgerblue"], 500, "kW", ["p"]))
+graphs.append(Graph("Energia", ["dodgerblue"], 500, "kWh", ["e"]))
 
-graphs.append(Graph("Receiver A", ["darkslateblue"], 400, ["a"]))
-graphs.append(Graph("Receiver B", ["darkslateblue"], 400, ["b"]))
-graphs.append(Graph("Receiver C", ["darkslateblue"], 400, ["c"]))
+graphs.append(Graph("Pobór odbiornik A", ["darkslateblue"], 400, "", ["a"]))
+graphs.append(Graph("Pobór odbiornik B", ["darkslateblue"], 400, "", ["b"]))
+graphs.append(Graph("Pobór odbiornik C", ["darkslateblue"], 400, "", ["c"]))
 
-graphs.append(Graph("Receiver A state", ["steelblue"], 150, ["a-state"]))
-graphs.append(Graph("Receiver B state", ["steelblue"], 150, ["b-state"]))
-graphs.append(Graph("Receiver C state", ["steelblue"], 150, ["c-state"]))
+graphs.append(Graph("Stan obriornik A", ["steelblue"], 150, "", ["a-state"]))
+graphs.append(Graph("Stan obriornik B", ["steelblue"], 150, "", ["b-state"]))
+graphs.append(Graph("Stan obriornik C", ["steelblue"], 150, "", ["c-state"]))
 
-graphs.append(Graph("Boiler 1", ["lightseagreen"], 400, ["b0"]))
-graphs.append(Graph("Boiler 2", ["lightseagreen"], 400, ["b1"]))
+graphs.append(Graph("Stan boiler 1", ["lightseagreen"], 400, "", ["b0"]))
+graphs.append(Graph("Stan boiler 2", ["lightseagreen"], 400, "", ["b1"]))
 
 #Timespan selector 
 selector = Select(title="Zakres danych", value=5, options=[
