@@ -10,7 +10,7 @@ void setup() {
 
 void loop() {
   serialLogging();
-  delay(1000);
+  delay(3000);
 }
 
 void serialLogging(){
